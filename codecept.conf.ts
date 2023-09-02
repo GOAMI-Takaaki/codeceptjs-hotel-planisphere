@@ -16,7 +16,7 @@ export const config: CodeceptJS.MainConfig = {
     Playwright: {
       browser: 'chromium',
       url: 'https://hotel.testplanisphere.dev/ja/index.html',
-      show: true
+      show: false
     },
     GlobalHelper: {
       require: './src/helper/global_helper.ts',
