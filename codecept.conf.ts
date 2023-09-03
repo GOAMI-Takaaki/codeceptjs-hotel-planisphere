@@ -16,7 +16,7 @@ export const config: CodeceptJS.MainConfig = {
     Playwright: {
       browser: 'chromium',
       url: 'https://hotel.testplanisphere.dev/ja/index.html',
-      show: false
+      show: false,
     },
     GlobalHelper: {
       require: './src/helper/global_helper.ts',
@@ -27,13 +27,21 @@ export const config: CodeceptJS.MainConfig = {
   },
   gherkin: {
     features: [
-      './features/basic.feature'
+      './features/confirm.feature',
+      './features/home.feature',
+      './features/login.feature',
+      './features/mypage.feature',
+      './features/plan.feature',
+      './features/reserve.feature',
+      './features/signup.feature'
     ],
     steps: [
       './step_definitions/action.ts',
+      './step_definitions/home.ts',
       './step_definitions/login.ts',
       './step_definitions/mypage.ts',
       './step_definitions/plan.ts',
+      './step_definitions/signup.ts'
     ]
   },
   name: 'codeceptjs-hotel-planisphere'

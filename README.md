@@ -37,6 +37,12 @@ ium
 
 $ npx codeceptjs gherkin:init
 
+```
+
+## Commands
+
+```
+$ npx codeceptjs run features/mypage.feature --debug
 $ npx codeceptjs def
 ```
 
@@ -44,3 +50,4 @@ $ npx codeceptjs def
 
 - [Commands](https://codecept.io/commands/#commands)
 - [Playwright Helper](https://codecept.io/helpers/Playwright/)
+- [Locators]https://codecept.io/locators/

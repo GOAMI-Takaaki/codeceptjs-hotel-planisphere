@@ -4,15 +4,27 @@ Feature: 宿泊プラン一覧
   プラン情報はAjaxで非同期に読み込まれます（トップの一つを除く）。
 
   Scenario: 正常系
-    Given ログインペ―ジに移動する。
-      And "ichiro@example.com" "password"でログインする。
+    Given ホームを開く。
       And 宿泊予約ペ―ジに移動する。
-      And プラン情報に移動する。
-     Then プラン情報が正しいか確認する。
+     Then 宿泊予約ペ―ジである事を確認する。
 
-    Examples:
-      | email               | password  | rank         |
-      |	ichiro@example.com  | password  | プレミアム会員 |
-      |	sakura@example.com  | pass1234  | 一般会員      |
-      |	jun@example.com     | pa55w0rd! | プレミアム会員 |
-      |	yoshiki@example.com | pass-pass | 一般会員      |
+  Scenario: 未ログイン
+    Given ホームを開く。
+      And 宿泊予約ペ―ジに移動する。
+     Then 会員限定がない事を確認する。
+      And プレミアム会員限定がない事を確認する。
+
+  Scenario: 一般会員
+    Given ホームを開く。
+      And ログインペ―ジに移動する。
+      And 一般会員でログインする。
+      And 宿泊予約ペ―ジに移動する。
+     Then 会員限定がある事を確認する。
+      And プレミアム会員限定がない事を確認する。
+
+  Scenario: プレミアム会員
+    Given ホームを開く。
+      And ログインペ―ジに移動する。
+      And プレミアム会員でログインする。
+      And 宿泊予約ペ―ジに移動する。
+     Then プレミアム会員限定がある事を確認する。

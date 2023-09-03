@@ -4,11 +4,12 @@ Feature: マイページ
   また、新規登録したユーザの場合アイコン画像の設定と退会（情報削除）ができます。
 
   Scenario Outline: 正常系
-    Given ログインペ―ジに移動する。
+    Given ホームを開く。
+      And ログインペ―ジに移動する。
       And "<email>" "<password>"でログインする。
       And マイペ―ジに移動する。
      Then マイペ―ジである事を確認する。
-      And 会員ランクが"<rank>"か確認する。
+      And 会員ランクが"<rank>"である事を確認する。
       And 3秒待つ。
 
     Examples:
