@@ -34,11 +34,11 @@ Given('プレミアム会員でログインする。', () => {
   login('ichiro@example.com', 'password');
 });
 
-Then('メールアドレス欄に{string}と言うエラーが表示されるか確認する。', (message: string) => {
+Then('メールアドレス欄に{string}と言うエラーが表示される。', (message: string) => {
   I.see(message, "#email-message");
 });
 
-Then('パスワード欄に{string}と言うエラーが表示されるか確認する。', (message: string) => {
+Then('パスワード欄に{string}と言うエラーが表示される。', (message: string) => {
   I.see(message, "#password-message");
 });
 

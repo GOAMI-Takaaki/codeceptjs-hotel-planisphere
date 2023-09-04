@@ -14,20 +14,24 @@ Then('宿泊予約ペ―ジである事を確認する。', () => {
   I.seeCurrentUrlEquals(URL);
 });
 
-Then('会員限定がある事を確認する。', () => {
-     I.see('会員限定');
+Then('プラン数が{int}である。', (count: number) => {
+  I.seeNumberOfVisibleElements('.card-title', count);
 });
 
-Then('会員限定がない事を確認する。', () => {
-     I.dontSee('会員限定');
+Then('以下のプランが表示されている。', (table: any) => {
+  const dataTableArgument = new DataTableArgument(table);
+  const hashes = dataTableArgument.hashes(); 
+  for (const hash of hashes) {
+     I.see(hash.plan);
+  }
 });
 
-Then('プレミアム会員限定がある事を確認する。', () => {
-     I.see('プレミアム会員限定');
+Given('{string}を選択する。', (plan: string) => {
+  I.click('このプランで予約');
 });
 
-Then('プレミアム会員限定がない事を確認する。', () => {
-     I.dontSee('プレミアム会員限定');
+Given('宿泊予約画面へ切り替える。', () => {
+  I.switchToNextTab();
 });
 
 export {};

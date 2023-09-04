@@ -3,7 +3,7 @@ const { I } = inject();
 const URL = 'https://hotel.testplanisphere.dev/ja/index.html';
 
 Given('ホームを開く。', () => {
-    I.amOnPage(URL);
+  I.amOnPage(URL);
 });  
 
 Given('ホームに移動する。', () => {

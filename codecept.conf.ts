@@ -16,7 +16,7 @@ export const config: CodeceptJS.MainConfig = {
     Playwright: {
       browser: 'chromium',
       url: 'https://hotel.testplanisphere.dev/ja/index.html',
-      show: false,
+      show: false
     },
     GlobalHelper: {
       require: './src/helper/global_helper.ts',
@@ -38,9 +38,11 @@ export const config: CodeceptJS.MainConfig = {
     steps: [
       './step_definitions/action.ts',
       './step_definitions/home.ts',
+      './step_definitions/icon.ts',
       './step_definitions/login.ts',
       './step_definitions/mypage.ts',
       './step_definitions/plan.ts',
+      './step_definitions/reserve.ts',
       './step_definitions/signup.ts'
     ]
   },

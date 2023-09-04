@@ -51,3 +51,22 @@ $ npx codeceptjs def
 - [Commands](https://codecept.io/commands/#commands)
 - [Playwright Helper](https://codecept.io/helpers/Playwright/)
 - [Locators]https://codecept.io/locators/
+
+## Config
+
+```
+  helpers: {
+    Playwright: {
+      show: true,
+      restart: 'session',
+      fullPageScreenshots: true,
+      keepBrowserState: true
+    },
+  }
+```
+
+## Function
+
+```
+pause();
+```
