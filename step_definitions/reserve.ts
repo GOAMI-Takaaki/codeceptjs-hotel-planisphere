@@ -35,8 +35,16 @@ Given('氏名が{string}となっている。', (username: string) => {
   I.seeInField('氏名', username);
 });
 
+Given('メールアドレスが{string}となっている。', (email: string) => {
+  I.seeInField('メールアドレス', email);
+});
+
+Given('電話番号が{string}となっている。', (tel: string) => {
+  I.seeInField('電話番号', tel);
+});
+
 Then('部屋情報が{string}となっている。', (room: string) => {
-  I.switchTo('iframe');
+  I.switchTo('iframe[name="room"]');
   I.grabCurrentUrl().then((value: string) => {console.log(value)})
   I.see(room);
 });
