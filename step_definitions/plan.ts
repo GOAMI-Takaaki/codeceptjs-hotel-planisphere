@@ -20,14 +20,14 @@ Then('プラン数が{int}である。', (count: number) => {
 
 Then('以下のプランが表示されている。', (table: any) => {
   const dataTableArgument = new DataTableArgument(table);
-  const hashes = dataTableArgument.hashes(); 
+  const hashes = dataTableArgument.hashes();
   for (const hash of hashes) {
      I.see(hash.plan);
   }
 });
 
 Given('{string}を選択する。', (plan: string) => {
-  I.click('このプランで予約');
+  I.click(locate('a').withText('このプランで予約').after(locate('h5').withText(plan)));
 });
 
 Given('宿泊予約画面へ切り替える。', () => {

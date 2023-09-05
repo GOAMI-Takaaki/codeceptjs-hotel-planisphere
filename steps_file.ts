@@ -1,10 +1,13 @@
-// in this file you can append custom step methods to 'I' object
+import assert from "assert";
 
 export = function() {
   return actor({
-
-    // Define custom steps here, use 'this' to access default methods of I.
-    // It is recommended to place a general 'login' function here.
-
+    seeNumberOfTabs: async (expected: number)=> {
+      const actual = await this.grabNumberOfOpenTabs();
+      assert(actual == expected, `期待されたタブの数は${expected}だが、実際は${actual}である。`);
+    },
+    focusOut: async () => {
+      await this.click("body");
+    }
   });
 }

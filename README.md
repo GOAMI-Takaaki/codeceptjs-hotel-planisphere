@@ -10,9 +10,14 @@ https://codecept.io/
 
 https://hotel.testplanisphere.dev/ja/
 
+## example
+
+https://github.com/testplanisphere/hotel-example-webdriverio-ja/
+
 ## Setup
 
 ref. https://codecept.io/quickstart/
+
 
 ```sh
 # Install codeceptjs

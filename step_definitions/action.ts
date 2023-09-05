@@ -1,3 +1,5 @@
+import assert from "assert";
+
 const { I } = inject();
 
 Given('{int}秒待つ。', (sec: number) => {
@@ -18,6 +20,10 @@ Then('{string}が表示されていない。', (field: string) => {
 
 Then('{string}が空欄である。', (field: string) => {
   I.seeInField(field, '');
+});
+
+Then('{string}にフォーカスする。', (field: string) => {
+  I.focus(field)
 });
 
 export {};
