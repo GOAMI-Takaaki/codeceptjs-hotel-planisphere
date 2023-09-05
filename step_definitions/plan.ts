@@ -1,3 +1,5 @@
+const { DataTableArgument } = require('codeceptjs');
+
 const { I } = inject();
 
 const URL = 'https://hotel.testplanisphere.dev/ja/plans.html';
@@ -19,10 +21,9 @@ Then('プラン数が{int}である。', (count: number) => {
 });
 
 Then('以下のプランが表示されている。', (table: any) => {
-  const dataTableArgument = new DataTableArgument(table);
-  const hashes = dataTableArgument.hashes();
-  for (const hash of hashes) {
-     I.see(hash.plan);
+  const tableByHeader = table.parse().hashes();
+  for (const row of tableByHeader) {
+    I.see(row.plan);
   }
 });
 

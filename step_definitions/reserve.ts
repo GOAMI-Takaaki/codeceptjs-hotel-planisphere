@@ -30,7 +30,7 @@ Given('宿泊日を{string}にする。', (date: string) => {
 Given('宿泊日を{int}日後にする。', (increment: number) => {
   const date = formatDate(increment);
   I.fillField('宿泊日', date);
-  I.click('閉じる');
+  tryTo(() => I.click('閉じる'));
 });
 
 Then('宿泊日が明日である。', () => {
