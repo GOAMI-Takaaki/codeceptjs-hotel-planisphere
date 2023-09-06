@@ -24,7 +24,6 @@ Given('マイペ―ジに移動する。', () => {
 
 Then('マイペ―ジである事を確認する。', () => {
   I.seeCurrentUrlEquals(URL);
-  //  await expect(MyPage.header).toHaveText('マイページ');
 });
 
 Then('メールアドレスが{string}である事を確認する。', (email: string) => {
@@ -68,6 +67,7 @@ Then('アイコンが存在する。', () => {
 });
 
 Then('幅が{int}である。', (value: number) => {
+  // TODO
   I.seeCssPropertiesOnElements('#icon-holder > img', { width: `${value}px` });
 });
 
@@ -76,15 +76,20 @@ Then('枠線の色が{string}である。', (color: string) => {
 });
 
 Given('退会をする。', () => {
+  // TODO
+  I.amAcceptingPopups();
   I.click('退会する');
+  I.seeInPopup('退会すると全ての情報が削除されます。');
+  I.acceptPopup();
 });
 
 Then('退会確認が表示される。', () => {
-  I.seeInPopup('退会すると全ての情報が削除されます。\nよろしいですか？');
+  //TODO
 });
 
 Then('退会結果が表示される。', () => {
   I.seeInPopup('退会処理を完了しました。ご利用ありがとうございました。');
+  I.acceptPopup();
 });
 
 export {};

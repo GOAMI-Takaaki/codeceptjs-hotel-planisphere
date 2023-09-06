@@ -17,7 +17,6 @@ Feature: マイページ
       And 性別が"<gender>"である事を確認する。
       And 生年月日が"<birthday>"である事を確認する。
       And お知らせが"<notification>"である事を確認する。
-      And 3秒待つ。
 
     Examples:
       | email               | password  | rank         | username  | address                    | tel        | gender | birthday      | notification |

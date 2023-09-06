@@ -6,7 +6,7 @@ Feature: ログイン
   Scenario: 定義済みユーザでログインができること
     Given ホームを開く。
       And ログインペ―ジに移動する。
-      And "ichiro@example.com" "password"でログインする。
+      And "ichiro@example.com" "wrong"でログインする。
      Then マイペ―ジである事を確認する。
 
   Scenario: 未入力でエラーとなること
@@ -15,7 +15,6 @@ Feature: ログイン
       And "" ""でログインする。
      Then メールアドレス欄に"このフィールドを入力してください。"と言うエラーが表示される。
       And パスワード欄に"このフィールドを入力してください。"と言うエラーが表示される。
-      And 3秒待つ。
 
   Scenario: 未登録のユーザでエラーとなること
     Given ホームを開く。

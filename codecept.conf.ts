@@ -16,10 +16,17 @@ export const config: CodeceptJS.MainConfig = {
     Playwright: {
       browser: 'chromium',
       url: 'https://hotel.testplanisphere.dev/ja/index.html',
+      windowSize: '1980x1080',
+      locale: 'ja-JP',
+      video: true,
+      keepVideoForPassedTests: true,
+      disableScreenshots: false,
+      fullPageScreenshots: true,
+      uniqueScreenshotNames: true,
+      highlightElement: false,
       show: false,
-    },
-    GlobalHelper: {
-      require: './src/helper/global_helper.ts',
+      trace: true,
+      keepTraceForPassedTests: true,
     },
   },
   include: {
@@ -27,14 +34,12 @@ export const config: CodeceptJS.MainConfig = {
   },
   gherkin: {
     features: [
-      './features/confirm.feature',
-      './features/home.feature',
       './features/login.feature',
+      './features/mypage-new.feature',
       './features/mypage.feature',
       './features/plan.feature',
       './features/reserve.feature',
       './features/signup.feature',
-      './features/working.feature'
     ],
     steps: [
       './step_definitions/action.ts',

@@ -1,29 +1,35 @@
-# codeceptjs-hotel-planisphere
+# hotel-example-codeceptjs-ja
 
-HOTEL PLANISPHERE を題材にした、CodeceptJS のサンプルです。
+このプロジェクトはテスト自動化学習のためのサンプルコードです。
 
-## CodeceptJS
+## 概要
 
-https://codecept.io/
+- テスト対象
+  - [HOTEL PLANISPHERE - 自動化練習サイト](https://hotel.testplanisphere.dev/ja/)
+- プログラミング言語
+  - [TypeScript](https://www.typescriptlang.org/)
+- ビルドツール
+  - [npm](https://www.npmjs.com/)
+- 自動化フレームワーク
+  - [CodeceptJS](https://codecept.io/)
+- テスト記法
+  - [Gherkin](https://cucumber.io/docs/gherkin/reference/)
+- シナリオ
+  - [testplanisphere/hotel-example-webdriverio-ja](https://github.com/testplanisphere/hotel-example-webdriverio-ja/)
 
-## HOTEL PLANISPHERE
+## プロジェクト作成
 
-https://hotel.testplanisphere.dev/ja/
-
-## example
-
-https://github.com/testplanisphere/hotel-example-webdriverio-ja/
-
-## Setup
-
-ref. https://codecept.io/quickstart/
-
+ref. [Quickstart | CodeceptJS](https://codecept.io/quickstart/)
 
 ```sh
-# Install codeceptjs
+# フォルダを作成する。
+$ mkdir codeceptjs-hotel-planishpere
+$ cd codeceptjs-hotel-planishpere
+
+# CodeceptJS と Playwright をインストールする。
 $ npx create-codeceptjs .
 
-# Initialize project
+# プロジェクトの初期化をする。
 $ npx codeceptjs init
 
 ? Do you plan to write tests in TypeScript? Yes
@@ -31,47 +37,413 @@ $ npx codeceptjs init
 ? What helpers do you want to use? Playwright
 ? Where should logs, screenshots, and reports to be stored? ./output
 ? Do you want to enable localization for tests? http://bit.ly/3GNUBbh ja-JP
+
 Configure helpers...
 ? [Playwright] Browser in which testing will be performed. Possible options: chromium, firefox, webkit or electron chrom
 ium
 ? [Playwright] Base url of site to be tested https://hotel.testplanisphere.dev/ja/
-? [Playwright] Show browser window Yes
+? [Playwright] Show browser window No
 
 ? Feature which is being tested (ex: account, login, etc) login
 ? Filename of a test login.ts
 
+# Gherkin 用の初期化をする。
 $ npx codeceptjs gherkin:init
-
 ```
 
-## Commands
+## フォルダ構成
 
-```
-$ npx codeceptjs run features/mypage.feature --debug
-$ npx codeceptjs def
-```
+### 自動作成
 
-## Links
+- features
+  - Gherkin形式で書くシナリオを配置する。
+- output
+  - 実行時のスクリーンショットなどが配置される。
+- step_definitions
+  - シナリオで記載されるステップを配置する。
+- [codecept.conf.js](./codecept.conf.ts)
+  - 動作を切り替える設定ファイル。
+- [step_file.ts](./steps_file.ts)
+  - 共通で利用するステップを配置する。
+- [steps.d.ts](./steps.d.ts)
+  - defコマンドによりTypescript用の定義が自動生成される。
 
-- [Commands](https://codecept.io/commands/#commands)
-- [Playwright Helper](https://codecept.io/helpers/Playwright/)
-- [Locators]https://codecept.io/locators/
+### 手動作成
 
-## Config
+- data
+  - シナリオに利用するファイルを配置する。
+- src
+  - 共通のコードを配置する。
 
-```
+### 設定
+
+### 自動作成
+
+ref. [Configuration | CodeceptJS](https://codecept.io/configuration/)
+
+```typescript
+export const config: CodeceptJS.MainConfig = {
+  tests: './*_test.ts', // テスト対象（未使用）
+  output: './output', // 出力先
   helpers: {
     Playwright: {
-      show: true,
-      restart: 'session',
-      fullPageScreenshots: true,
-      keepBrowserState: true
+      browser: 'chromium', //ブラウザ
+      url: 'https://hotel.testplanisphere.dev/ja/index.html', // 初期URL
     },
+  },
+  include: { 
+    I: './steps_file' // 共通ステップを定義するファイルを指定する。
+  },
+  gherkin: {
+    features: [ 
+      // シナリオ毎に作成する。
+    ],
+    steps: [ 
+      // ページ毎に作成する。
+    ]
+  },
+  name: 'hotel-example-codeceptjs-ja' // プロジェクト名
+}
+```
+
+### 手動作成
+
+ref. [Configuration](https://codecept.io/helpers/Playwright/#configuration) in Playwright | CodeceptJS
+
+```typescript
+export const config: CodeceptJS.MainConfig = {
+  ...
+  helpers: {
+    Playwright: {
+      ...
+      windowSize: '1980x1080', // 画面サイズ
+      locale: 'ja-JP', // 言語
+      video: false, // 動画を取得するか
+      keepVideoForPassedTests: false, // 成功時も動画を残すか
+      disableScreenshots: false, // スクリーンショットを無効にするか
+      fullPageScreenshots: true, // スクリーンショットを全画面にするか
+      uniqueScreenshotNames: true, // スクリーンショット名をユニークにするか
+      highlightElement: false, // エラー箇所をハイライトするか（不具合？）
+      show: false, // 画面表示をするか
+      trace: true, // 詳細な記録(htmlやスクリーンショット)を残すか
+      keepTraceForPassedTests: false, // 成功時も詳細な記録を残すか
+    },
+  },
+  ...
+}
+```
+
+## テスト作成
+
+ref. [Behaivior Driven Development | CodeceptJS](https://codecept.io/bdd/)
+
+### シナリオ記述
+
+- features にファイルを追加する。
+  ```sh
+  $ touch ./features/login.feature
+  ```
+- シナリオを記述する。
+ 
+  login.feature
+  ```gherkin
+  Feature: ログイン
+    シンプルなテキストインプットとボタンの画面です。
+    ログイン情報はCookieに保存されます。
+    会員登録画面で保存したユーザの他、登録済みのユーザ（下記）があります。
+
+    Scenario: 定義済みユーザでログインができること
+      Given ホームを開く。
+        And ログインペ―ジに移動する。
+        And "ichiro@example.com" "password"でログインする。
+      Then マイペ―ジである事を確認する。
+  ```
+- codecept.conf.ts の features に追記する。
+  ```typescript
+  export const config: CodeceptJS.MainConfig = {
+    ...
+    gherkin: {
+      features: [ 
+        './features/login.feature', // 追記
+        ...
+      ],
+    },
+    ...
   }
+  ```
+
+### ステップ実装
+
+ref. [Playwright Helper](https://codecept.io/helpers/Playwright/),  [Locators](https://codecept.io/locators/) | CodeceptJS
+
+- step_definitions にファイルを追加する。
+  ```sh
+  $ touch ./features/login.ts
+  $ touch ./features/home.ts
+  $ touch ./features/mypage.ts
+  ```
+- 各ステップを記述する。
+ 
+  home.ts
+  ```typescript
+  const { I } = inject();
+
+  const URL = 'https://hotel.testplanisphere.dev/ja/index.html';
+  Given('ホームを開く。', () => {
+    // URLを開く
+    I.amOnPage(URL);
+  });  
+
+  export {};
+  ```
+  login.ts
+  ```typescript
+  const { I } = inject();
+
+  Given('ログインペ―ジに移動する。', () => {
+    I.click('ログイン', locate('nav'));
+  });
+
+  const login = (email: string, password:string) => {
+    I.fillField('メールアドレス', email);
+    I.fillField('パスワード', password);
+    I.click('ログイン', '#login-button');
+  };
+
+  Given('{string} {string}でログインする。', login);
+
+  export {};
+  ```
+  mypage.ts
+  ```typescript
+  const { I } = inject();
+  
+  const URL = 'https://hotel.testplanisphere.dev/ja/mypage.html';
+
+  Then('マイペ―ジである事を確認する。', () => {
+    I.seeCurrentUrlEquals(URL);
+  });
+
+  export {};
+  ```
+- codecept.conf.ts の step_definitions に追記する。
+  ```typescript
+  export const config: CodeceptJS.MainConfig = {
+    ...
+    gherkin: {
+      steps: [
+        './step_definitions/home.ts', //追記
+        './step_definitions/login.ts', //追記
+        './step_definitions/mypage.ts', //追記
+      ]
+    },
+    ...
+  }
+  ```
+
+## 実行
+
+ref. [Commands | CodeceptJS](https://codecept.io/commands/#commands)
+
+```sh
+# ログインを実行する。
+$ npx codeceptjs run features/login.feature
+
+# 特定のシナリオだけ実行する。
+$ npx codeceptjs run --verbose --grep "定義済みユーザでログインができること"
+
+# 全シナリオを実行する。
+$ npx codeceptjs run 
 ```
 
-## Function
+### デバッグ
 
+#### デバック用引数を指定して実行する。
+
+```sh
+$ npx codeceptjs run --verbose
 ```
-pause();
+
+#### ステップの実行状況を確認する。
+
+```sh
+ログイン --
+  シンプルなテキストインプットとボタンの画面です。
+  ログイン情報はCookieに保存されます。
+  会員登録画面で保存したユーザの他、登録済みのユーザ（下記）があります。
+  ✖ 定義済みユーザでログインができること in 7514ms
+
+-- FAILURES:
+
+  1) ログイン
+      定義済みユーザでログインができること:
+    expected url of current page "https://hotel.testplanisphere.dev/ja/mypage.html" to equal "https://hotel.testplanisphere.dev/ja/login.html"
+  
+  Scenario Steps:
+  - I.seeCurrentUrlEquals("https://hotel.testplanisphere.dev/ja/mypage.html") at ./step_definitions/mypage.ts:26:5
+  - I.click("ログイン", "#login-button") at login (./step_definitions/login.ts:24:5)
+  - I.fillField("パスワード", "wrong") at login (./step_definitions/login.ts:23:5)
+  - I.fillField("メールアドレス", "ichiro@example.com") at login (./step_definitions/login.ts:22:5)
+  - I.click("ログイン", nav) at ./step_definitions/login.ts:10:5
+  - I.amOnPage("https://hotel.testplanisphere.dev/ja/index.html") at ./step_definitions/home.ts:6:5
 ```
+
+#### 出力された画像や動画、トレースを確認する。
+ 
+```sh
+Artifacts:
+- screenshot: ~/output/定義済みユーザでログ_1693978807.failed.png
+- video: ~/output/videos/6bdb1195-5850-431b-8722-14924907c83c_定義済みユーザでログインができること.failed.webm
+- trace: ~/output/trace/39dade40-4344-4e00-98d3-ea5953f89d14_定義済みユーザでログインができること.failed.zip
+```
+
+#### 画面を表示して確認する。
+
+codeceptjs.conf.ts
+```typescript
+export const config: CodeceptJS.MainConfig = {
+  helpers: {
+    Playwright: {
+      show: true // false -> true
+    },
+  },
+};
+```
+
+#### 変数を出力して確認する。
+ 
+login.ts
+```typescript
+const login = (email: string, password:string) => {
+  console.log(`email=${email}`);
+  I.fillField('メールアドレス', email);
+  I.fillField('パスワード', password);
+  I.click('ログイン', '#login-button');
+};
+Given('{string} {string}でログインする。', login);
+```
+
+## Tips
+
+### 複数データでシナリオ実行する。
+
+Paramterized Testのような動作になる。
+
+ref. [Examples](https://codecept.io/bdd/#examples) in Behavior Driven Development | CodeceptJS
+
+mypage.feature
+- Scenario を Outline にする。
+  ```gherkin
+    Scenario Outline: 定義済みユーザの情報が表示されること
+  ```
+- 変数を`<カラム名>`で指定する。
+  ```gherkin
+      Given ホームを開く。
+        And ログインペ―ジに移動する。
+        And "<email>" "<password>"でログインする。
+      Then マイペ―ジである事を確認する。
+        And メールアドレスが"<email>"である事を確認する。
+        And 氏名が"<username>"である事を確認する。
+        And 会員ランクが"<rank>"である事を確認する。
+        ...
+  ```
+- Examples にデータを表形式で記載する。 
+  ```gherkin
+      Examples:
+        | email               | password  | rank         | username  |...|
+        |	ichiro@example.com  | password  | プレミアム会員 | 山田一郎  |...|
+        |	sakura@example.com  | pass1234  | 一般会員      | 松本さくら |...|
+        |	jun@example.com     | pa55w0rd! | プレミアム会員 | 林潤      |...|
+        |	yoshiki@example.com | pass-pass | 一般会員      | 木村良樹   |...|
+  ```
+
+### 複数データでステップを実行する。
+
+ref. [Tables](https://codecept.io/bdd/#tables) in Behavior Driven Development | CodeceptJS
+
+- ステップの下にデータを表形式で記載する。
+  - ex. カラム名: planName
+
+  plan.feature
+  ```gherkin
+    Scenario: 未ログイン状態でプラン一覧が表示されること
+      Given ホームを開く。
+        And 宿泊予約ペ―ジに移動する。
+      Then プラン数が7である。
+        And 以下のプランが表示されている。
+        | planName               |
+        | お得な特典付きプラン     |
+        | 素泊まり                |
+        | 出張ビジネスプラン       |
+        | エステ・マッサージプラン |
+        | 貸し切り露天風呂プラン   |
+        | カップル限定プラン       |
+        | テーマパーク優待プラン   |
+  ```
+- ステップ実装
+ 
+  plan.ts
+  ```typescript
+  // 変数 table で受け取る。
+  Then('以下のプランが表示されている。', (table: any) => { 
+    // データを行単位に分割する。
+    const rows = table.parse().hashes(); 
+    for (const row of rows) { 
+      // 値をカラム名で取得する。
+      I.see(row.planName); 
+    }
+  });
+  ```
+
+### 共通で利用するステップを追加する。
+
+- step_files.ts に追記する。
+  ```typescript
+  export = function() {
+    return actor({
+      // 独自定義の関数を追加する。
+      seeNumberOfTabs: async (expected: number)=> {
+        const actual = await this.grabNumberOfOpenTabs();
+        assert(actual == expected, `期待されたタブの数は${expected}だが、実際は${actual}である。`);
+      },
+    });
+  }
+  ```
+- ステップで利用する。
+ 
+  reserve.ts
+  ```typescript
+  Given('宿泊予約確認が閉じられる。', () => {
+    // どこからでも利用可能になる。
+    I.seeNumberOfTabs(1);
+  });
+  ```
+
+### アクションをステップにする。
+
+- シナリオに記載できるよう、ステップとしてラップする。
+
+  action.ts
+  ```typescript
+  Given('{int}秒待つ。', (sec: number) => {
+    I.wait(sec);
+  });
+  ```
+- シナリオに記載する。
+ 
+  ```gherkin
+  Scenario: 未入力でエラーとなること
+    Given ホームを開く。
+      And 3秒待つ。
+      And ログインペ―ジに移動する。
+      ...
+  ``` 
+
+## その他
+
+// TODO
+
+- Testing with AI
+- Report
+- Mobile
+- Helper

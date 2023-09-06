@@ -2,6 +2,7 @@ const { I } = inject();
 
 Given('アイコン画像に{string}を登録する。', (fileName: string) => {
   I.attachFile('アイコン画像', `data/${fileName}`);
+  //TODO
 });
 
 Then('アイコン画像欄に{string}と言うエラーが表示される。', (message: string) => {
@@ -9,6 +10,7 @@ Then('アイコン画像欄に{string}と言うエラーが表示される。', 
 });
 
 Given('拡大・縮小に{int}を指定する。', (value: number) => {
+  // TODO
   I.dragSlider('#zoom', value);
 });
 

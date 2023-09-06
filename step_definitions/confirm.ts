@@ -9,6 +9,7 @@ const verifyTotalBill = (increment: number, term: number, calcTotalBill: Functio
 };
 
 Then('合計が正しく表示されている。', () => {
+    // TODO
     const calcTotalBill = (date: Date): string => {
         if (date.getDay() === 6 || date.getDay() === 7) {
           return '8,750';
@@ -19,6 +20,7 @@ Then('合計が正しく表示されている。', () => {
 });
 
 Then('合計が{int}日後に{int}泊の料金となっている。', (increment: number, term: number) => {
+    // TODO
     const calcTotalBill = (date: Date): string => {
         if (date.getDay() === 6) {
             return '112,000';
@@ -36,6 +38,7 @@ Then('プランが{string}となっている。', (planName: string) => {
 });
 
 Then('期間が{int}日後から{int}泊となっている。', (increment: number, term: number) => {
+    // TODO
     const start = new Date();
     start.setDate(start.getDate() + increment);
 
