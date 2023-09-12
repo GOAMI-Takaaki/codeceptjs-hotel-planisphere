@@ -16,6 +16,8 @@
   - [Gherkin](https://cucumber.io/docs/gherkin/reference/)
 - シナリオ
   - [testplanisphere/hotel-example-webdriverio-ja](https://github.com/testplanisphere/hotel-example-webdriverio-ja/)
+- OS
+  - Linux or WSLg + Ubuntu 22.04
 
 ## プロジェクト作成
 
@@ -246,6 +248,9 @@ ref. [Playwright Helper](https://codecept.io/helpers/Playwright/),  [Locators](h
 ref. [Commands | CodeceptJS](https://codecept.io/commands/#commands)
 
 ```sh
+# npx create-codeceptjs . を実施せず、実行するだけの場合
+npx playwright install-deps
+
 # ログインを実行する。
 $ npx codeceptjs run features/login.feature
 
@@ -256,15 +261,15 @@ $ npx codeceptjs run --verbose --grep "定義済みユーザでログインが�
 $ npx codeceptjs run 
 ```
 
-### デバッグ
+## デバッグ
 
-#### デバック用引数を指定して実行する。
+### デバック用引数を指定して実行する。
 
 ```sh
 $ npx codeceptjs run --verbose
 ```
 
-#### ステップの実行状況を確認する。
+### ステップの実行状況を確認する。
 
 ```sh
 ログイン --
@@ -288,7 +293,7 @@ $ npx codeceptjs run --verbose
   - I.amOnPage("https://hotel.testplanisphere.dev/ja/index.html") at ./step_definitions/home.ts:6:5
 ```
 
-#### 出力された画像や動画、トレースを確認する。
+### 出力された画像や動画、トレースを確認する。
  
 ```sh
 Artifacts:
@@ -297,7 +302,7 @@ Artifacts:
 - trace: ~/output/trace/39dade40-4344-4e00-98d3-ea5953f89d14_定義済みユーザでログインができること.failed.zip
 ```
 
-#### 画面を表示して確認する。
+### 画面を表示して確認する。
 
 codeceptjs.conf.ts
 ```typescript
@@ -310,7 +315,7 @@ export const config: CodeceptJS.MainConfig = {
 };
 ```
 
-#### 変数を出力して確認する。
+### 変数を出力して確認する。
  
 login.ts
 ```typescript
