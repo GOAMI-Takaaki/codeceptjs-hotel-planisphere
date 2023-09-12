@@ -178,9 +178,9 @@ ref. [Playwright Helper](https://codecept.io/helpers/Playwright/),  [Locators](h
 
 - step_definitions にファイルを追加する。
   ```sh
-  $ touch ./features/login.ts
-  $ touch ./features/home.ts
-  $ touch ./features/mypage.ts
+  $ touch ./step_definitions/login.ts
+  $ touch ./step_definitions/home.ts
+  $ touch ./step_definitions/mypage.ts
   ```
 - 各ステップを記述する。
  
