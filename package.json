@@ -18,7 +18,7 @@
         "@codeceptjs/examples": "^1.2.1",
         "@codeceptjs/ui": "^0.6.1",
         "@types/node": "^20.5.7",
-        "codeceptjs": "^3.5.4",
+        "codeceptjs": "^3.5.5",
         "playwright": "^1.37.1",
         "ts-node": "^10.9.1",
         "typescript": "^5.2.2"
