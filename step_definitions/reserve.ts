@@ -100,9 +100,9 @@ Given('予約内容を確認する。', () => {
 });
 
 Then('部屋情報が{string}となっている。', async (room: string) => {
-  //TODO https://github.com/codeceptjs/CodeceptJS/pull/3847
-  // I.switchTo({ frame: 'iframe' });
-  // I.see(room);
+  I.switchTo({ frame: '.embed-responsive-item' });
+  // Frame content is not visible without h5.
+  I.see(room, 'h5');
 });
 
 Then('氏名欄に{string}と言うエラーが表示される。', (message: string) => {
