@@ -1,6 +1,6 @@
 # hotel-example-codeceptjs-ja
 
-このプロジェクトはテスト自動化学習のためのサンプルコードです。
+自動化練習サイト「HOTEL PLANISPHERE」を対象に、Gherkin記法のテストを、CodeceptJS で実装したサンプルコードです。
 
 ## 概要
 
@@ -18,6 +18,61 @@
   - [testplanisphere/hotel-example-webdriverio-ja](https://github.com/testplanisphere/hotel-example-webdriverio-ja/)
 - OS
   - Linux or WSLg + Ubuntu 22.04
+
+## CodeceptJS とは
+
+- E2Eテストフレームワークである。
+- Node.jsプロジェクトである。
+- Gherkin記法をサポートしている。
+ 
+### CodeceptJS の Pros / Cons
+
+#### Pros
+
+- コードが直感的で分かりやすい。
+  - ex. `I.click('ログイン')`
+- 対応しているテストツールが多い。
+  - ex. Playwright, WebDriver, Puppeteer, TestCafe, Appium
+- プラグインが豊富である。
+  - ex. ビジュアルテスト、データ駆動テスト、テストレポートなど
+
+#### Cons
+
+- ドキュメント通りに動作しないことがある。
+  - ex. iframeやポップアップ
+- 日本語ドキュメントが少ない。
+  - CodeceptJS に関する Qiita は 44 記事だけである。
+- Gherkin記法がサブ的な位置づけである。
+  - 機能強化の見通しが不透明である。
+
+## Gherkin 記法とは
+
+- 自然言語で記述するシナリオ・フォーマットの１つである。
+  - ex. Feature / Scenario / Given / when / Then で記述する。
+- 振る舞い駆動開発 (Behavior Driven Development: BDD) で利用される。
+  - TDD としての SpceBDD と 受け入れテストとしての StoryBDD がある。
+- [Cucumber](https://cucumber.io/)で利用されている記法として知られる。
+  - [Gherkin Reference](https://cucumber.io/docs/gherkin/reference/) で詳述されている。
+
+### Gherkin 記法の Pros / Cons
+
+#### Pros
+
+- 自然言語で記述できる。
+  - 誰でも理解・記述でき、関係者と認識を合わせやすい。
+- シナリオだけで記述できる。
+  - 画面操作を含まず、実装前に定義できる。
+- 記述方法が共通化されている。
+  - ナレッジの再利用性がある。
+
+#### Cons
+
+- 記述が冗長になりやすい。
+  - ex. `ログイン画面のメールアドレスに{string}を入力する。`
+- 曖昧になりやすい。
+  - 実装者との認識が一致しない可能性がある。
+- フォーマットの拡張性がない。
+  - デシジョン・テーブルなどパターンテストには利用しづらい。
 
 ## プロジェクト作成
 
@@ -248,9 +303,6 @@ ref. [Playwright Helper](https://codecept.io/helpers/Playwright/),  [Locators](h
 ref. [Commands | CodeceptJS](https://codecept.io/commands/#commands)
 
 ```sh
-# npx create-codeceptjs . を実施せず、実行するだけの場合
-npx playwright install-deps
-
 # ログインを実行する。
 $ npx codeceptjs run features/login.feature
 
@@ -259,6 +311,16 @@ $ npx codeceptjs run --verbose --grep "定義済みユーザでログインが�
 
 # 全シナリオを実行する。
 $ npx codeceptjs run 
+```
+
+### プロジェクト作成してない場合
+
+```sh
+# ライブラリをインストールする。
+$ npm ci
+
+# Playwright の関連ライブラリをインストールする。
+$ npx playwright install-deps
 ```
 
 ## デバッグ
