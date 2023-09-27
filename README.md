@@ -4,29 +4,37 @@
 
 ## 概要
 
-- テスト対象
+### 対象
+
+- サービス
   - [HOTEL PLANISPHERE - 自動化練習サイト](https://hotel.testplanisphere.dev/ja/)
-- プログラミング言語
-  - [TypeScript](https://www.typescriptlang.org/)
-- ビルドツール
-  - [npm](https://www.npmjs.com/)
-- 自動化フレームワーク
-  - [CodeceptJS](https://codecept.io/)
-- テスト記法
-  - [Gherkin](https://cucumber.io/docs/gherkin/reference/)
 - シナリオ
   - [testplanisphere/hotel-example-webdriverio-ja](https://github.com/testplanisphere/hotel-example-webdriverio-ja/)
-- OS
-  - Linux or WSLg + Ubuntu 22.04
 
-## CodeceptJS とは
+### 構成
+
+- 自動化フレームワーク
+  - [CodeceptJS](https://codecept.io/) + [Playwright](https://playwright.dev/)
+- プログラミング言語
+  - [TypeScript](https://www.typescriptlang.org/)
+- テスト記法
+  - [Gherkin](https://cucumber.io/docs/gherkin/reference/)
+
+### 環境
+
+- ライブラリ
+  - [Node.js](https://nodejs.org/ja)
+- OS
+  - [WSLg](https://learn.microsoft.com/ja-jp/windows/wsl/tutorials/gui-apps) + [Ubuntu 22.04.2 LTS](https://apps.microsoft.com/store/detail/ubuntu-22042-lts/9PN20MSR04DW)
+
+## 基本
+
+### CodeceptJS とは
 
 - E2Eテストフレームワークである。
 - Node.jsプロジェクトである。
 - Gherkin記法をサポートしている。
  
-### CodeceptJS の Pros / Cons
-
 #### Pros
 
 - コードが直感的で分かりやすい。
@@ -45,7 +53,7 @@
 - Gherkin記法がサブ的な位置づけである。
   - 機能強化の見通しが不透明である。
 
-## Gherkin 記法とは
+### Gherkin 記法とは
 
 - 自然言語で記述するシナリオ・フォーマットの１つである。
   - ex. Feature / Scenario / Given / when / Then で記述する。
@@ -53,8 +61,6 @@
   - TDD としての SpceBDD と 受け入れテストとしての StoryBDD がある。
 - [Cucumber](https://cucumber.io/)で利用されている記法として知られる。
   - [Gherkin Reference](https://cucumber.io/docs/gherkin/reference/) で詳述されている。
-
-### Gherkin 記法の Pros / Cons
 
 #### Pros
 
@@ -88,20 +94,28 @@ $ npx create-codeceptjs .
 
 # プロジェクトの初期化をする。
 $ npx codeceptjs init
-
+# TypeScriptは利用する。
 ? Do you plan to write tests in TypeScript? Yes
+# テストを各ファイル名のルールだが、今回は使用しない。
 ? Where are your tests located? ./*_test.ts
+# 使うテストツールは Playwright にする。
 ? What helpers do you want to use? Playwright
+# 出力フォルダ名は output にする。
 ? Where should logs, screenshots, and reports to be stored? ./output
-? Do you want to enable localization for tests? http://bit.ly/3GNUBbh ja-JP
+# ローカライズは英語のままにする。ja-JP だと不具合もある。
+? Do you want to enable localization for tests? http://bit.ly/3GNUBbh English
 
+# ブラウザは chromium を選択する。
 Configure helpers...
 ? [Playwright] Browser in which testing will be performed. Possible options: chromium, firefox, webkit or electron chrom
 ium
+# ベース URL は HOTEL PLANISPHERE に指定する。
 ? [Playwright] Base url of site to be tested https://hotel.testplanisphere.dev/ja/
+# テスト時の画面は非表示にする。
 ? [Playwright] Show browser window No
-
+# 最初に作るシナリオ名は login にする。
 ? Feature which is being tested (ex: account, login, etc) login
+# シナリオを記述するファイル名は login.ts にする。
 ? Filename of a test login.ts
 
 # Gherkin 用の初期化をする。
@@ -298,7 +312,7 @@ ref. [Playwright Helper](https://codecept.io/helpers/Playwright/),  [Locators](h
   }
   ```
 
-## 実行
+## テスト実行
 
 ref. [Commands | CodeceptJS](https://codecept.io/commands/#commands)
 
@@ -323,7 +337,7 @@ $ npm ci
 $ npx playwright install-deps
 ```
 
-## デバッグ
+## デバッグ実行
 
 ### デバック用引数を指定して実行する。
 
@@ -506,11 +520,17 @@ ref. [Tables](https://codecept.io/bdd/#tables) in Behavior Driven Development | 
       ...
   ``` 
 
-## その他
+## TODO
 
-// TODO
+### 修正
 
-- Testing with AI
-- Report
-- Mobile
-- Helper
+- ポップアップ不具合
+- 金額計算不具合
+
+### 追加
+
+- [Reports](https://codecept.io/reports/)
+- [Custom Helper](https://codecept.io/helpers/)
+- [Mobile](https://codecept.io/helpers/Appium.html)
+- [Visual Testing](https://codecept.io/visual/)
+- [AI Testing](https://codecept.io/ai/)
